@@ -6,7 +6,6 @@ import com.google.ortools.sat.CpSolver;
 import com.google.ortools.sat.CpSolverStatus;
 import com.google.ortools.sat.IntVar;
 import com.google.ortools.sat.LinearExpr;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -88,8 +87,8 @@ public class QuadraticSolver {
             final var xVal = solver.value(x);
             final var yVal = solver.value(y);
 
-            logger.info(String.format("x = %d", xVal));
-            logger.info(String.format("y = %d", yVal));
+            logger.info("x = {}", xVal);
+            logger.info("y = {}", yVal);
 
             // Calculate and display the objective value
             final var objValue = solver.objectiveValue();
@@ -99,24 +98,21 @@ public class QuadraticSolver {
             final var xDiffVal = xVal - 5;
             final var yDiffVal = yVal - 3;
             final var manualObj = xDiffVal * xDiffVal + yDiffVal * yDiffVal;
-            logger.info(String.format("Verification: (%d)^2 + (%d)^2 = %d",
-                    xDiffVal, yDiffVal, manualObj));
+            logger.info("Verification: ({})^2 + ({})^2 = {}", xDiffVal, yDiffVal, manualObj);
 
             // Verify constraints
             logger.info("Constraint verification:");
-            logger.info(String.format("  x + y = %d (>= 10? %s)",
-                    xVal + yVal, (xVal + yVal >= 10) ? "✓" : "✗"));
-            logger.info(String.format("  x + 2*y = %d (<= 14? %s)",
-                    xVal + 2 * yVal, (xVal + 2 * yVal <= 14) ? "✓" : "✗"));
+            logger.info("  x + y = {} (>= 10? {})", xVal + yVal, (xVal + yVal >= 10) ? "✓" : "✗");
+            logger.info("  x + 2*y = {} (<= 14? {})", xVal + 2 * yVal, (xVal + 2 * yVal <= 14) ? "✓" : "✗");
 
             logger.info("Solver statistics:");
-            logger.info("  Status: " + status);
-            logger.info(String.format("  Wall time: %s seconds", solver.wallTime()));
-            logger.info(String.format("  Branches: %d", solver.numBranches()));
-            logger.info(String.format("  Conflicts: %d", solver.numConflicts()));
+            logger.info("  Status: {}", status);
+            logger.info("  Wall time: {} seconds", solver.wallTime());
+            logger.info("  Branches: {}", solver.numBranches());
+            logger.info("  Conflicts: {}", solver.numConflicts());
         } else {
             logger.error("No solution found!");
-            logger.error("Status: " + status);
+            logger.error("Status: {}", status);
         }
     }
 }
